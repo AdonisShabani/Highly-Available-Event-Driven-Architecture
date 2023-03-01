@@ -22,6 +22,6 @@ resource "aws_route_table_association" "private_subnet_association" {
     subnet_name => subnet if contains(["private-subent-1a", "private-subent-1b"], subnet_name)
   }
 
-  subnet_id = aws_subnet.subnet[each.key].id 
+  subnet_id      = aws_subnet.subnet[each.key].id
   route_table_id = aws_route_table.route-tabels.id
 }
