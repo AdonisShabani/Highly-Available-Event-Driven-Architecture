@@ -33,9 +33,9 @@ resource "aws_security_group" "security-group" {
 resource "aws_launch_template" "ec2-template" {
   name = "My-template"
 
-  image_id = var.ami_id
+  image_id      = var.ami_id
   instance_type = var.instance_type
-  key_name = var.key_name
+  key_name      = var.key_name
 
   vpc_security_group_ids = [aws_security_group.security-group.id]
 
@@ -43,8 +43,8 @@ resource "aws_launch_template" "ec2-template" {
 }
 
 resource "aws_autoscaling_group" "autoscaling" {
-  name = "My-launc-template"
-  availability_zones = ["eu-central-1a","eu-central-1b"]
+  name               = "My-launc-template"
+  availability_zones = var.availability_zone
   desired_capacity   = 2
   max_size           = 2
   min_size           = 2

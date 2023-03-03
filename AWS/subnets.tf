@@ -1,27 +1,46 @@
-resource "aws_subnet" "subnet" {
-  for_each          = var.subnets
-  cidr_block        = each.value.cidr_block
-  availability_zone = each.value.availability_zone
+resource "aws_subnet" "public-subnets" {
   vpc_id            = aws_vpc.vpc.id
+  count             = 2
+  cidr_block        = "10.0.${count.index + 1}.0/24"
+  availability_zone = element(var.availability_zone, count.index)
+
+  tags = {
+    Name = "Public-subnet"
+  }
 }
 
 
-resource "aws_route_table" "route-tabels" {
+resource "aws_subnet" "private-subnets" {
+  vpc_id            = aws_vpc.vpc.id
+  count             = 2
+  cidr_block        = "10.0.${count.index + 3}.0/24"
+  availability_zone = element(var.availability_zone, count.index)
+
+  tags = {
+    name = "Private-subnet"
+  }
+}
+
+
+resource "aws_route_table" "route-table" {
   vpc_id = aws_vpc.vpc.id
 
   route = []
 
   tags = {
-    Name = "Private-RT"
+    Name = "PrivateRT"
   }
 }
 
-resource "aws_route_table_association" "private_subnet_association" {
-  for_each = {
-    for subnet_name, subnet in var.subnets :
-    subnet_name => subnet if contains(["private-subent-1a", "private-subent-1b"], subnet_name)
-  }
+resource "aws_route_table_association" "a" {
+  count          = 2
+  subnet_id      = aws_subnet.private-subnets[count.index].id
+  route_table_id = aws_route_table.route-table.id
 
-  subnet_id      = aws_subnet.subnet[each.key].id
-  route_table_id = aws_route_table.route-tabels.id
 }
+
+
+
+
+
+
