@@ -44,5 +44,14 @@ variable "availability_zone" {
 
 }
 
+variable "db-username" {
+  type        = string
+  description = "Username of the database"
+}
+
+variable "db-password" {
+  type        = string
+  description = "Password of the database"
+}
 
 
