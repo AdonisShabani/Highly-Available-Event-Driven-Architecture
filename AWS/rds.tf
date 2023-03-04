@@ -36,19 +36,29 @@ resource "aws_security_group" "security-group-db" {
 
 
 resource "aws_db_instance" "database" {
-  engine                 = "mysql"
-  instance_class         = "db.t2.micro"
-  allocated_storage      = 100
-  db_name                = "MyDatabase"
-  username               = var.db-username
-  password               = var.db-password
-  db_subnet_group_name   = aws_db_subnet_group.subnet-group[count.index].name
-  count                  = 1
-  multi_az               = true
-  vpc_security_group_ids = [aws_security_group.security-group-db.id]
+  engine                  = "mysql"
+  instance_class          = "db.t2.micro"
+  allocated_storage       = 100
+  db_name                 = "MyDatabase"
+  username                = var.db-username
+  password                = var.db-password
+  db_subnet_group_name    = aws_db_subnet_group.subnet-group[count.index].name
+  count                   = 1
+  multi_az                = true
+  vpc_security_group_ids  = [aws_security_group.security-group-db.id]
+  backup_retention_period = 7
+  skip_final_snapshot     = true
 
 
   depends_on = [
     aws_subnet.private-subnets
   ]
+}
+
+resource "aws_db_instance" "database-replica" {
+  count               = 1
+  instance_class = "db.t2.micro"
+  replicate_source_db = aws_db_instance.database[count.index].id
+  password            = var.db-password
+  skip_final_snapshot = true
 }
