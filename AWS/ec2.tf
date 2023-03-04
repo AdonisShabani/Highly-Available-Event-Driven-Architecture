@@ -1,6 +1,6 @@
 resource "aws_security_group" "security-group" {
 
-  #vpc_id = aws_vpc.vpc.id
+  vpc_id = aws_vpc.vpc.id
 
   ingress {
     description = "HTTP"
@@ -45,11 +45,12 @@ resource "aws_launch_template" "ec2-template" {
 }
 
 resource "aws_autoscaling_group" "autoscaling" {
-  name               = "My-launc-template"
-  availability_zones = var.availability_zone
-  desired_capacity   = 2
-  max_size           = 2
-  min_size           = 2
+  name                = "My-launc-template"
+  vpc_zone_identifier = [aws_subnet.public-subnets[0].id, aws_subnet.public-subnets[1].id]
+  count               = 1
+  desired_capacity    = 2
+  max_size            = 2
+  min_size            = 2
 
   launch_template {
     id      = aws_launch_template.ec2-template.id

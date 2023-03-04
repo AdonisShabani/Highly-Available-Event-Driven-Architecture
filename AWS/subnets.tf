@@ -16,6 +16,7 @@ resource "aws_subnet" "private-subnets" {
   cidr_block        = "10.0.${count.index + 3}.0/24"
   availability_zone = element(var.availability_zone, count.index)
 
+
   tags = {
     name = "Private-subnet"
   }
