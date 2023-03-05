@@ -10,6 +10,14 @@ resource "aws_security_group" "security-group" {
     cidr_blocks = ["0.0.0.0/0"]
   }
 
+  ingress {
+    description = "HTTPS"
+    from_port   = 443
+    to_port     = 443
+    protocol    = "tcp"
+    cidr_blocks = ["0.0.0.0/0"]
+  }
+
 
   ingress {
     description = "SSH"
@@ -39,7 +47,12 @@ resource "aws_launch_template" "ec2-template" {
   instance_type = var.instance_type
   key_name      = var.key_name
 
-  vpc_security_group_ids = [aws_security_group.security-group.id]
+
+
+  network_interfaces {
+    associate_public_ip_address = true
+    security_groups             = [aws_security_group.security-group.id]
+  }
 
   user_data = filebase64("../user-data-az.sh")
 }
