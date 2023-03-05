@@ -14,4 +14,28 @@ resource "aws_sns_topic_subscription" "subsription" {
   endpoint  = aws_sqs_queue.sqs.arn
 }
 
+resource "aws_iam_role" "example" {
+  name = "example-role"
+  assume_role_policy = jsonencode({
+    Version = "2012-10-17"
+    Statement = [
+      {
+        Action = "sts:AssumeRole"
+        Effect = "Allow"
+        Principal = {
+          Service = "lambda.amazonaws.com"
+        }
+      }
+    ]
+  })
+}
+
+resource "aws_lambda_function" "example" {
+  filename      = "function.zip"
+  function_name = "Myfunction"
+  role          = aws_iam_role.example.arn
+  handler       = "index.handler"
+  runtime       = "nodejs14.x"
+}
+
 
