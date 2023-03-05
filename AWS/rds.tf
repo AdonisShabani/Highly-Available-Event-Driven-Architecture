@@ -57,7 +57,6 @@
 
 # resource "aws_db_instance" "database-replica" {
 #   count               = 1
-#   instance_class = "db.t2.micro"
 #   replicate_source_db = aws_db_instance.database[count.index].id
 #   password            = var.db-password
 #   skip_final_snapshot = true
