@@ -51,16 +51,10 @@ resource "aws_autoscaling_group" "autoscaling" {
   desired_capacity    = 2
   max_size            = 2
   min_size            = 2
-
   launch_template {
     id      = aws_launch_template.ec2-template.id
     version = "$Latest"
   }
 }
 
-resource "aws_autoscaling_attachment" "asg_attachment_bar" {
-  autoscaling_group_name = aws_autoscaling_group.autoscaling[count.index].id
-  count                  = 1
-  lb_target_group_arn    = aws_lb_target_group.target-group.arn
-}
 

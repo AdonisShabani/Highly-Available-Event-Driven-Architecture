@@ -7,7 +7,6 @@
 # }
 
 data "aws_route53_zone" "hosted_zone" {
-  # name         = "adonisshabani.info"
   private_zone = false
   zone_id      = "Z055730626EDU97HD80IC"
 }
