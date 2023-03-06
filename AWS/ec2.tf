@@ -64,6 +64,7 @@ resource "aws_autoscaling_group" "autoscaling" {
   desired_capacity    = 2
   max_size            = 2
   min_size            = 2
+  target_group_arns   = [aws_lb_target_group.target-group.arn]
   launch_template {
     id      = aws_launch_template.ec2-template.id
     version = "$Latest"

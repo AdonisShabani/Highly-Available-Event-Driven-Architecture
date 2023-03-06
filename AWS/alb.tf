@@ -5,8 +5,6 @@ resource "aws_lb_target_group" "target-group" {
   vpc_id   = aws_vpc.vpc.id
 }
 
-## Attach EC2 targets manualy
-
 resource "aws_lb" "lb" {
   name               = "alb"
   internal           = false
