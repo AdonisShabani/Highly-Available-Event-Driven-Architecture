@@ -1,6 +1,5 @@
 locals {
-  org                                       = "adonis"
-  region                                    = "us-east-1"
+  org                                       = "AWS"
   vpc_name                                  = format("%s-vpc-%s", local.org, var.environment)
   default_route_table_name                  = format("%s-default-rt-%s", local.org, var.environment)
   default_network_acl_name                  = format("%s-default-acl-%s", local.org, var.environment)
@@ -28,6 +27,6 @@ locals {
     Environment = var.environment
     Managed_by  = "Terraform"
     Owner       = "Adonis"
-    Region      = local.region
+    Region      = var.region
   }
 }
