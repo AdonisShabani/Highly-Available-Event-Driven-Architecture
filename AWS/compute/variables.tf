@@ -21,6 +21,24 @@ variable "AWS_SESSION_TOKEN" {
 }
 
 variable "environment" {
-    type = string
-    default = "dev" 
+  type    = string
+  default = "dev"
+}
+
+variable "ami_id" {
+  description = "Ami ID used for EC2 Instaces"
+  default     = "ami-0c0933ae5caf0f5f9"
+
+}
+
+variable "instance_type" {
+  description = "Type of the EC2 Instaces"
+  default     = "t2.micro"
+
+}
+
+variable "key_name" {
+  description = "Key pair for EC2"
+  default     = "Adonis-key"
+
 }

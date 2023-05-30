@@ -1,6 +1,6 @@
 resource "aws_security_group" "security-group" {
 
-  vpc_id = aws_vpc.vpc.id
+  vpc_id = data.terraform_remote_state.networking.outputs.vpc_id
 
   ingress {
     description = "HTTP"
@@ -41,7 +41,7 @@ resource "aws_security_group" "security-group" {
 }
 
 resource "aws_launch_template" "ec2-template" {
-  name = "My-template"
+  name = local.launch_template
 
   image_id      = var.ami_id
   instance_type = var.instance_type
@@ -54,16 +54,16 @@ resource "aws_launch_template" "ec2-template" {
     security_groups             = [aws_security_group.security-group.id]
   }
 
-  user_data = filebase64("../user-data-az.sh")
+  user_data = filebase64("./user-data.sh")
 }
 
 resource "aws_autoscaling_group" "autoscaling" {
-  name                = "My-launc-template"
-  vpc_zone_identifier = [aws_subnet.public-subnets[0].id, aws_subnet.public-subnets[1].id]
+  name                = local.launch_template
+  vpc_zone_identifier = [data.terraform_remote_state.networking.outputs.public_subnets]
   count               = 1
-  desired_capacity    = 2
-  max_size            = 2
-  min_size            = 2
+  desired_capacity    = 3
+  max_size            = 3
+  min_size            = 3
   target_group_arns   = [aws_lb_target_group.target-group.arn]
   launch_template {
     id      = aws_launch_template.ec2-template.id
