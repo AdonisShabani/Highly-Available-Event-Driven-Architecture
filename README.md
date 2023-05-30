@@ -1,1 +1,5 @@
-# stage-4
+# This Terraform module enables the deployment of a highly available and event-driven environment on AWS. It starts by establishing network infrastructure, including the creation of a VPC and all associated networking components. Once the network layer is in place, the module provisions various AWS resources within the VPC to support the application.
+
+# Key features of this module include the creation of EC2 instances and RDS databases for application hosting, as well as the setup of SQS, SNS, and Lambda for queueing, event processing, and event-driven functionality. High availability considerations are incorporated from the beginning, such as the creation of network subnets and the provisioning of resilient EC2 and RDS instances.
+
+# The networking components included in this module are: VPC, Private Subnet (NAT Gateway), Public Subnet (Internet Gateway), Application Load Balancer, and Route53 record. In addition, it covers essential AWS services, including EC2, Lambda, SQS, SNS, and IAM permissions following the least privilege principle
