@@ -19,3 +19,10 @@ variable "AWS_SESSION_TOKEN" {
   type        = string
   description = "Aws Session Token"
 }
+
+variable "environment" {
+  type    = string
+  default = "dev"
+
+}
+

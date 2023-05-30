@@ -1,9 +1,9 @@
 resource "aws_sns_topic" "sns" {
-  name = "My-topic"
+  name = local.aws_sns_topic
 }
 
 resource "aws_sqs_queue" "sqs" {
-  name = "My-queue"
+  name = local.aws_sqs_queue
 }
 
 resource "aws_sns_topic_subscription" "subsription" {
@@ -59,6 +59,8 @@ resource "aws_lambda_function" "lambda" {
   role          = aws_iam_role.test_role.arn
   handler       = "index.handler"
   runtime       = "nodejs14.x"
+
+  tags = local.tags
 }
 
 resource "aws_lambda_event_source_mapping" "map" {

@@ -3,11 +3,11 @@ module "acm" {
   version = "~> 4.0"
 
   domain_name = local.adonis_domain_name
-  zone_id     = data.aws_route53_zone.hosted_zone.id
+  zone_id     = aws_route53_zone.zone.id
 
-  subject_alternative_names = local.adonis_subject_alternative_names
+  subject_alternative_names = local.subject_alternative_names
 
   wait_for_validation = true
 
-  tags = local.tags
+  tags = local.common_tags
 }

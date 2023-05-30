@@ -21,8 +21,6 @@ variable "AWS_SESSION_TOKEN" {
 }
 
 variable "environment" {
-    type = string
-    default = "dev"
-  
+  type = string
+  default = "dev"
 }
-
