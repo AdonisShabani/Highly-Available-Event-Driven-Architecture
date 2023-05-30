@@ -27,7 +27,7 @@ locals {
     Project     = local.org
     Environment = var.environment
     Managed_by  = "Terraform"
-    Owner       = "Appstellar"
+    Owner       = "Adonis"
     Region      = local.region
   }
 }
