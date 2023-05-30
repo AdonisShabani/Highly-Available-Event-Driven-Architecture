@@ -9,7 +9,5 @@ module "acm" {
 
   wait_for_validation = true
 
-  tags = {
-    Name = "adonisshabani.info"
-  }
+  tags = local.tags
 }

@@ -1,6 +1,6 @@
 terraform {
   backend "remote" {
-    workspaces { name = "storage" }
+    workspaces { prefix = "storage-" }
     hostname     = "app.terraform.io"
     organization = "adonis1995"
   }

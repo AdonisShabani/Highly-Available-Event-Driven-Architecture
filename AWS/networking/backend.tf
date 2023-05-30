@@ -1,6 +1,6 @@
 terraform {
   backend "remote" {
-    workspaces { name = "networking" }
+    workspaces { prefix = "networking-" }
     hostname     = "app.terraform.io"
     organization = "adonis1995"
   }
